@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#008cff">
-<meta name="description" content="DPZORA - Save Your Moments">
 
-<title>DPZORA - Save Your Moments</title>
+<title>DPZORA - DP & Status Saver</title>
 
 <link rel="manifest" href="./manifest.json">
 
@@ -21,16 +20,14 @@
 body {
     background: #050b16;
     color: white;
-    min-height: 100vh;
 }
 
 header {
-    padding: 22px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 20px;
     background: #091525;
     border-bottom: 1px solid #123c60;
+    display: flex;
+    justify-content: space-between;
 }
 
 .logo {
@@ -40,62 +37,66 @@ header {
     letter-spacing: 2px;
 }
 
-.menu {
-    color: #00c8ff;
-    font-size: 23px;
-}
-
 .hero {
-    padding: 45px 20px;
     text-align: center;
+    padding: 40px 15px;
 }
 
 .hero h1 {
     font-size: 38px;
     color: #00c8ff;
-    margin-bottom: 12px;
 }
 
 .hero p {
     color: #a9b9ce;
-    line-height: 1.6;
+    margin-top: 12px;
 }
 
 .container {
-    padding: 20px;
     max-width: 600px;
+    padding: 18px;
     margin: auto;
 }
 
 .card {
-    background: linear-gradient(145deg, #10243a, #091525);
+    background: linear-gradient(145deg,#10243a,#091525);
     border: 1px solid #174b70;
-    border-radius: 20px;
-    padding: 25px;
+    border-radius: 18px;
+    padding: 22px;
     margin-bottom: 20px;
-    box-shadow: 0 5px 25px #001b35;
 }
 
 .card h2 {
     color: #00c8ff;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 .card p {
     color: #b6c5d8;
-    margin-bottom: 20px;
     line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    background: #050b16;
+    border: 1px solid #087bb4;
+    border-radius: 10px;
+    color: white;
+    margin-bottom: 15px;
+    font-size: 15px;
 }
 
 button {
-    background: linear-gradient(90deg, #008cff, #00d5ff);
-    color: white;
-    border: none;
-    padding: 14px 20px;
     width: 100%;
-    border-radius: 12px;
-    font-size: 16px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg,#008cff,#00d5ff);
+    color: white;
     font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
 }
 
@@ -103,43 +104,38 @@ button:active {
     transform: scale(.97);
 }
 
-.upload {
-    text-align: center;
-    padding: 25px;
-    border: 2px dashed #087bb4;
-    border-radius: 15px;
-    margin-top: 20px;
+.preview {
+    margin-top: 18px;
 }
 
-input[type="file"] {
-    width: 100%;
-    color: white;
-    margin-bottom: 15px;
-}
-
-#preview img,
-#preview video {
+.preview img,
+.preview video {
     width: 100%;
     border-radius: 12px;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
-.download-btn {
-    margin-top: 10px;
+.download {
     display: block;
-    background: #008cff;
-    color: white;
     text-align: center;
+    text-decoration: none;
+    color: white;
+    background: #008cff;
     padding: 12px;
     border-radius: 10px;
-    text-decoration: none;
+    margin-top: 12px;
+}
+
+.note {
+    font-size: 12px;
+    color: #8faac2;
+    margin-top: 12px;
 }
 
 footer {
     text-align: center;
-    padding: 30px;
+    padding: 25px;
     color: #829bb5;
-    font-size: 13px;
 }
 </style>
 </head>
@@ -148,7 +144,7 @@ footer {
 
 <header>
     <div class="logo">DPZORA</div>
-    <div class="menu">☰</div>
+    <div>🩵</div>
 </header>
 
 <section class="hero">
@@ -159,46 +155,72 @@ footer {
 
 <div class="container">
 
+    <!-- DP LOOKUP -->
+
     <div class="card">
+
+        <h2>👤 DP Finder</h2>
+
+        <p>Enter WhatsApp number and add a profile picture shared with you.</p>
+
+        <input
+            type="tel"
+            id="waNumber"
+            placeholder="Enter WhatsApp Number"
+        >
+
+        <button onclick="checkNumber()">
+            Continue
+        </button>
+
+        <p class="note">
+            A phone number alone cannot retrieve someone's WhatsApp DP.
+            Use a photo shared with permission.
+        </p>
+
+        <div id="dpResult" class="preview"></div>
+
+    </div>
+
+
+    <!-- STATUS SAVER -->
+
+    <div class="card">
+
         <h2>📸 Status Saver</h2>
-        <p>
-            Select WhatsApp status media that you have
-            permission to access and save.
-        </p>
 
-        <button onclick="selectMedia()">
-            Select Status Media
-        </button>
+        <p>Select a WhatsApp status photo or video you have permission to save.</p>
+
+        <input
+            type="file"
+            id="statusMedia"
+            accept="image/*,video/*"
+            multiple
+            onchange="showMedia(event,'statusPreview')"
+        >
+
+        <div id="statusPreview" class="preview"></div>
+
     </div>
 
-    <div class="card">
-        <h2>👤 DP Gallery</h2>
-        <p>
-            Select profile pictures shared with you
-            to preview and save.
-        </p>
 
-        <button onclick="selectMedia()">
-            Open Gallery
-        </button>
-    </div>
+    <!-- DP GALLERY -->
 
     <div class="card">
-        <h2>📂 My Downloads</h2>
-        <p>Preview and save your selected media.</p>
 
-        <div class="upload">
-            <input
-                type="file"
-                id="media"
-                accept="image/*,video/*"
-                multiple
-                onchange="previewFiles(event)"
-            >
-            <p id="message">Select your media files</p>
-        </div>
+        <h2>🖼️ DP Gallery</h2>
 
-        <div id="preview"></div>
+        <p>Select a profile picture shared with you.</p>
+
+        <input
+            type="file"
+            id="dpMedia"
+            accept="image/*"
+            onchange="showMedia(event,'dpPreview')"
+        >
+
+        <div id="dpPreview" class="preview"></div>
+
     </div>
 
 </div>
@@ -209,57 +231,95 @@ footer {
 </footer>
 
 <script>
-function selectMedia() {
-    document.getElementById("media").click();
+
+function checkNumber() {
+
+    const number = document
+        .getElementById("waNumber")
+        .value.trim();
+
+    const result = document.getElementById("dpResult");
+
+    if (!/^\+?[0-9]{7,15}$/.test(number)) {
+        alert("Please enter a valid phone number.");
+        return;
+    }
+
+    result.innerHTML = `
+        <p style="color:#00c8ff">
+        Number entered: ${escapeHTML(number)}
+        </p>
+        <p>
+        To view this person's DP, ask them to share
+        their profile picture with you.
+        </p>
+        <button onclick="document.getElementById('dpMedia').click()">
+        Select Shared DP
+        </button>
+    `;
 }
 
-function previewFiles(event) {
+function escapeHTML(value) {
+    return value.replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[char]);
+}
+
+function showMedia(event, target) {
+
     const files = event.target.files;
-    const preview = document.getElementById("preview");
-    const message = document.getElementById("message");
+    const preview = document.getElementById(target);
 
     preview.innerHTML = "";
 
-    if (!files.length) return;
-
-    message.innerText = files.length + " file(s) selected";
-
     Array.from(files).forEach(file => {
+
         const url = URL.createObjectURL(file);
 
         const item = document.createElement("div");
 
         if (file.type.startsWith("image/")) {
+
             const img = document.createElement("img");
             img.src = url;
+
             item.appendChild(img);
+
         } else if (file.type.startsWith("video/")) {
+
             const video = document.createElement("video");
             video.src = url;
             video.controls = true;
+
             item.appendChild(video);
+
+        } else {
+            return;
         }
 
-        const download = document.createElement("a");
-        download.href = url;
-        download.download = file.name;
-        download.innerText = "⬇ Download " + file.name;
-        download.className = "download-btn";
+        const link = document.createElement("a");
 
-        item.appendChild(download);
+        link.href = url;
+        link.download = file.name;
+        link.innerText = "⬇ Download " + file.name;
+        link.className = "download";
+
+        item.appendChild(link);
         preview.appendChild(item);
+
     });
 }
-</script>
 
-<script>
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js")
-        .then(() => console.log("DPZORA PWA Ready!"))
-        .catch(error => console.log("Service Worker Error:", error));
+        navigator.serviceWorker.register("./service-worker.js");
     });
 }
+
 </script>
 
 </body>
