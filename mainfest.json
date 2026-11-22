@@ -1,0 +1,11 @@
+{
+  "name": "DPZORA",
+  "short_name": "DPZORA",
+  "description": "WhatsApp Status and DP Saver",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#050b16",
+  "theme_color": "#008cff",
+  "orientation": "portrait",
+  "icons": []
+}
