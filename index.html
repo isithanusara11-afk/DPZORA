@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DPZORA - Save Your Moments</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #050b16;
+    color: white;
+}
+
+header {
+    padding: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #091525;
+    border-bottom: 1px solid #123c60;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #00c8ff;
+    letter-spacing: 2px;
+}
+
+.menu {
+    color: #00c8ff;
+    font-size: 23px;
+}
+
+.hero {
+    padding: 45px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 36px;
+    color: #00c8ff;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: #a9b9ce;
+    line-height: 1.6;
+}
+
+.container {
+    padding: 20px;
+}
+
+.card {
+    background: linear-gradient(145deg, #10243a, #091525);
+    border: 1px solid #174b70;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 25px #001b35;
+}
+
+.card h2 {
+    color: #00c8ff;
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #b6c5d8;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+button {
+    background: linear-gradient(90deg, #008cff, #00d5ff);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    width: 100%;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(.97);
+}
+
+.upload {
+    text-align: center;
+    padding: 25px;
+    border: 2px dashed #087bb4;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #829bb5;
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">DPZORA</div>
+    <div class="menu">☰</div>
+</header>
+
+<section class="hero">
+    <h1>DPZORA</h1>
+    <p>Save Your Moments.<br>
+    Your Media, Your Memories.</p>
+</section>
+
+<div class="container">
+
+    <div class="card">
+        <h2>📸 Status Saver</h2>
+        <p>Save WhatsApp photos and videos that you have permission to save.</p>
+        <button onclick="document.getElementById('media').click()">
+            Select Media
+        </button>
+    </div>
+
+    <div class="card">
+        <h2>👤 DP Gallery</h2>
+        <p>View and manage profile pictures shared with you.</p>
+        <button onclick="document.getElementById('media').click()">
+            Open Gallery
+        </button>
+    </div>
+
+    <div class="card">
+        <h2>📂 My Downloads</h2>
+        <p>Preview your selected photos and videos.</p>
+
+        <div class="upload">
+            <input type="file" id="media"
+            accept="image/*,video/*"
+            multiple
+            onchange="previewFiles(event)">
+            <p id="message">Select your media files</p>
+        </div>
+
+        <div id="preview"></div>
+    </div>
+
+</div>
+
+<footer>
+    DPZORA © 2026<br>
+    Developed by Isith Anusara 🩵
+</footer>
+
+<script>
+function previewFiles(event) {
+    const files = event.target.files;
+    const preview = document.getElementById("preview");
+    const message = document.getElementById("message");
+
+    preview.innerHTML = "";
+
+    if (!files.length) return;
+
+    message.innerText = files.length + " file(s) selected";
+
+    Array.from(files).forEach(file => {
+        const url = URL.createObjectURL(file);
+
+        if (file.type.startsWith("image/")) {
+            const img = document.createElement("img");
+            img.src = url;
+            img.style.width = "100%";
+            img.style.borderRadius = "12px";
+            img.style.marginTop = "15px";
+            preview.appendChild(img);
+        } else if (file.type.startsWith("video/")) {
+            const video = document.createElement("video");
+            video.src = url;
+            video.controls = true;
+            video.style.width = "100%";
+            video.style.marginTop = "15px";
+            preview.appendChild(video);
+        }
+    });
+}
+</script>
+
+</body>
+</html>
